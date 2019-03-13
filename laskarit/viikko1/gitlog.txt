@@ -1,0 +1,113 @@
+commit bb7e10efd3c4905fa0929ee0dc18b5271c63fc4f
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 15:19:58 2019 +0200
+
+    poisto ja uudelleennimeys
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 5a08be8043edac26207828b839adfb14ccf9abd3
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 15:17:31 2019 +0200
+
+    tiedostoja
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 1a8ea8d67305465eb9934e8bda813750b2b37032
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 15:02:07 2019 +0200
+
+    add -p harjoitus
+
+ eka.txt    | 3 ++-
+ kolmas.txt | 9 ++++-----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+commit 2d6a7b27c516e74ecddfa4ea411b8f5256cd1931
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 14:58:21 2019 +0200
+
+    tiedosto.txt uudelleennimeys
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 6154dbbb9dc3d39f8f6d16ddf398d04c5b257718
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 14:57:02 2019 +0200
+
+    poistettu toinen.txt
+
+ toinen.txt | 3 ---
+ 1 file changed, 3 deletions(-)
+
+commit a4f6a830ebf749407f8cc364f854351e228ed509
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 14:56:13 2019 +0200
+
+    muutettu tekstia
+
+ tiedosto.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 011fae50066fe4d54345efe5a66c19be212f7b89
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 14:55:28 2019 +0200
+
+    paljon tekstia
+
+ tiedosto.txt | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit e7e0673ebee62821f598f904c2a3add27bb82889
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 14:46:33 2019 +0200
+
+    stuff hakemisto lisatty
+
+ stuff/jotain.md | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 31de223a3c1a33e696765f878380abfb9ee6dd80
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 14:39:09 2019 +0200
+
+    muutoksia
+
+ kolmas.txt | 5 +++++
+ toinen.txt | 3 +++
+ 2 files changed, 8 insertions(+)
+
+commit 8dbaa88e113514afe34fd5c5856856e6ba060ed8
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 14:37:44 2019 +0200
+
+    kolmas.txt luotu
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 62435dd9fae976347f9c6afd721172f494959744
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 14:35:18 2019 +0200
+
+    muutos ja lisays
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 3ff3e318de60fee0b8e5fe508b067aa42c180030
+Author: Vikke Tiirola <vikke.tiirola@gmail.com>
+Date:   Wed Mar 13 14:31:52 2019 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
