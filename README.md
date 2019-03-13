@@ -2,6 +2,8 @@
 OhTen kurssipalautukset.
 
 **Ensimmäisellä viikolla** käsitellään muun muassa _markdownia_.
+[ ] Muutos etärepossa
+[x] Muutos paikallisessa repositoryssa
 
 [gitlog.txt](https://github.com/vikketii/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
