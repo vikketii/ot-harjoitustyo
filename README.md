@@ -1,6 +1,10 @@
-# Ohjelmistotekniikan kurssi
-OhTen kurssipalautukset.
+# Ohjelmistotekniikka-kurssin projekti
+## Kuviogeneraattori
+Projektin aiheena on kertotauluun perustuva kuviogeneraattori.
+[Tuntikirjanpito](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 
+
+## Laskuharjoitustehtävät
 **Ensimmäisellä viikolla** käsitellään muun muassa _markdownia_.
 - [x] Muutos etärepossa
 - [x] Muutos paikallisessa repositoryssa
