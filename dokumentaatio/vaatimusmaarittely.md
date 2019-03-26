@@ -4,8 +4,8 @@ Sovelluksen avulla voidaan tuottaa erilaisia ympyrämuotoisia kuvioita perustuen
 Kuvioiden piirtotapaa ja animaatiota voidaan muokata sovelluksen käyttöliittymän avulla.
 
 ## Käyttöliittymäluonnos
-Sovelluksella on yksi näkymä
-![kayttoliittymaluonnos](./kuvat/kayttoliittymaluonnos.png)
+Tällä hetkellä suunnitelmana on toteuttaa yksi näkymä, jossa tapahtuu sekä kuvioiden piirtäminen että niiden muokkaus.
+Näkymiä voisi mahdollisesti olla myös muita (esimerkiksi aloitusruutu), mutta tässä vaiheessa eri näkymien lisäys tuntuu keinotekoiselta.
 
 ## Perusversion suunniteltu toiminnallisuus
 - kuvioiden katselunäkymä
@@ -13,8 +13,8 @@ Sovelluksella on yksi näkymä
   - piirrettävien viivojen määrä
   - kerroin
 - kuvion animointi
-  - päälle/pois
+  - päälle/pois painike
   - nopeussäädin
 
 ## Jatkokehitysideoita
--
+Lisää tietoa, kun kehitystä on tapahtunut...
