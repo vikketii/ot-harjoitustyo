@@ -1,6 +1,9 @@
 # Ohjelmistotekniikka-kurssin projekti
 ## Kuviogeneraattori
 Projektin aiheena on kertotauluun perustuva kuviogeneraattori.
+
+[Alustava vaatimusmäärittely](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+
 [Tuntikirjanpito](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 
 
