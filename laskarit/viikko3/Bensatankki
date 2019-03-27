@@ -1,0 +1,22 @@
+title Bensatankki ja moottori
+
+main->machine: new Machine()
+
+machine->tank: new FuelTank()
+note over tank: fuelContents=0
+machine->tank: fill(40)
+note over tank: fuelContents=40
+machine->engine: new Engine(tank)
+note over engine: fuelTank=tank
+
+main->machine: drive()
+machine->engine: start()
+engine->tank: consume(5)
+note over tank: fuelContents=35
+machine->engine: isRunning()
+engine->tank: contentsLeft()
+tank-->engine: 35
+engine-->machine: true
+machine->engine: useEnergy()
+engine->tank: consume(10)
+note over tank:fuelContents=25
