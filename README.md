@@ -11,6 +11,11 @@ Projektin aiheena on kertotauluun perustuva kuviogeneraattori.
 
 ## Komentorivitoiminnot
 
+Ohjelman voi suorittaa pääkansiossa komennolla
+```
+mvn compile exec:java -Dexec.mainClass=timestable.ui.TimesTableUi
+```
+
 ### Testaus
 
 Testit suoritetaan komennolla
