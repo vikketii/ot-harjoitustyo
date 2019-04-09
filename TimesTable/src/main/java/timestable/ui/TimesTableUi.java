@@ -35,8 +35,8 @@ public class TimesTableUi extends Application {
 
     private TimesTable timestable;
     private double multiplier = 0;
-    private int totalVectors = 10000;
-    private double changeValue = 100;
+    private int totalVectors = 100;
+    private double changeValue = 4;
 
     private Timeline timeline;
 

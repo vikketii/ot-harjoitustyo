@@ -10,6 +10,7 @@ package timestable.domain;
  * @author vikke
  */
 public class Vector {
+
     private double startX;
     private double startY;
     private double endX;
@@ -56,21 +57,21 @@ public class Vector {
     public void setStartY(double startY) {
         this.startY = startY;
     }
-    
+
     public void setEndPoints(double endX, double endY) {
         this.endX = endX;
         this.endY = endY;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Vector)) {
             return false;
         }
         Vector other = (Vector) obj;
-        return (startX == other.getStartX() &&
-                startY == other.getStartY() &&
-                endX == other.getEndX() &&
-                endY == other.getEndY());
+        return (startX == other.getStartX()
+                && startY == other.getStartY()
+                && endX == other.getEndX()
+                && endY == other.getEndY());
     }
 }
