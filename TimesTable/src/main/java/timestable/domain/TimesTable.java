@@ -31,11 +31,11 @@ public class TimesTable {
     }
     
     public Vector initVector(int place, double multiplier, int totalVectors) {
-        double t = place * ((2 * Math.PI) / totalVectors);
+        double t = (place + 1) * ((2 * Math.PI) / totalVectors);
         double startX = circleRadius + circleRadius*Math.cos(t);
         double startY = circleRadius + circleRadius*Math.sin(t);
         
-        t = multiplier * place * ((2 * Math.PI) / totalVectors);
+        t *= multiplier;
         double endX = circleRadius + circleRadius*Math.cos(t);
         double endY = circleRadius + circleRadius*Math.sin(t);
         
@@ -46,7 +46,7 @@ public class TimesTable {
         if (vectors.size() != totalVectors) {
             vectors.clear();
             for (int i = 0; i < totalVectors ; i++) {
-                Vector v = initVector(i + 1, multiplier, totalVectors);
+                Vector v = initVector(i, multiplier, totalVectors);
                 vectors.add(v);
             }
         } else {
@@ -54,8 +54,7 @@ public class TimesTable {
                 double t = multiplier * (i + 1) * ((2 * Math.PI) / totalVectors);
                 double endX = circleRadius + circleRadius*Math.cos(t);
                 double endY = circleRadius + circleRadius*Math.sin(t);
-                vectors.get(i).setEndX(endX);
-                vectors.get(i).setEndY(endY);
+                vectors.get(i).setEndPoints(endX, endY);
             }
         }
     }
@@ -67,6 +66,4 @@ public class TimesTable {
     public int getCircleRadius() {
         return circleRadius;
     }
-    
-    
 }

@@ -57,6 +57,11 @@ public class Vector {
         this.startY = startY;
     }
     
+    public void setEndPoints(double endX, double endY) {
+        this.endX = endX;
+        this.endY = endY;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Vector)) {

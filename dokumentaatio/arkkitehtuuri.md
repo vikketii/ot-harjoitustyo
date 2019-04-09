@@ -1,0 +1,1 @@
+![Luokkakaavio](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/luokkakaavio.png)

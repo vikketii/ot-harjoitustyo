@@ -6,6 +6,8 @@ Projektin aiheena on kertotauluun perustuva kuviogeneraattori.
 
 [Alustava vaatimusmäärittely](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
+[Arkkitehtuuri](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+
 [Tuntikirjanpito](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 
 
