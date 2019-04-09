@@ -2,16 +2,27 @@
 ## Kuviogeneraattori
 Projektin aiheena on kertotauluun perustuva kuviogeneraattori.
 
+## Dokumentaatio
+
 [Alustava vaatimusmäärittely](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 [Tuntikirjanpito](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 
 
-## Laskuharjoitustehtävät
-**Ensimmäisellä viikolla** käsitellään muun muassa _markdownia_.
-- [x] Muutos etärepossa
-- [x] Muutos paikallisessa repositoryssa
+## Komentorivitoiminnot
 
-[gitlog.txt](https://github.com/vikketii/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+### Testaus
 
-[komentorivi.txt](https://github.com/vikketii/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+Testit suoritetaan komennolla
+
+```
+mvn test
+```
+
+Testikattavuusraportti luodaan komennolla
+
+```
+mvn jacoco:report
+```
+
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
