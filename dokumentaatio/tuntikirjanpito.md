@@ -7,4 +7,6 @@
 | 3.4.  | 3    | animaation toteutus |
 | 9.4.  | 4    | käyttöliittymän ominaisuuksien lisäys ja parantelu |
 | 9.4.  | 2    | testien lisäys, dokumentaatio |
-| yht   | 16   | |
+| 16.4. | 7    | käyttöliittymän koodin refaktorointi ja ominaisuuksien lisäys |
+| 16.4. | 1    | testien lisäys, dokumentaatio |
+| yht   | 24   | |
