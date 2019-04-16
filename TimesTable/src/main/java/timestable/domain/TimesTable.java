@@ -11,15 +11,20 @@ public class TimesTable {
     private ArrayList<Vector> vectors;
     private int circleRadius = 380;
 
-    public TimesTable() {
+    public TimesTable(double multiplier, int totalVectors) {
         vectors = new ArrayList<>();
-    }
-
-    public void init(double multiplier, int totalVectors) {
+        
         if (totalVectors < 1) {
             return;
         }
         
+        for (int i = 0; i < totalVectors; i++) {
+            Vector v = initVector(i + 1, multiplier, totalVectors);
+            vectors.add(v);
+        }
+    }
+
+    public Vector initVector(int place, double multiplier, int totalVectors) {
         // First we need coordinates along 
         // the circle (which is divided by totalVectors to parts)
         //
@@ -28,14 +33,7 @@ public class TimesTable {
         // y = b + r*sin(t)
         // where (a,b) is the center of the circle
         // and t is (2*Pi)/totalVectors
-
-        for (int i = 0; i < totalVectors; i++) {
-            Vector v = initVector(i + 1, multiplier, totalVectors);
-            vectors.add(v);
-        }
-    }
-
-    public Vector initVector(int place, double multiplier, int totalVectors) {
+        
         double t = (place + 1) * ((2 * Math.PI) / totalVectors);
         double startX = circleRadius + circleRadius * Math.cos(t);
         double startY = circleRadius + circleRadius * Math.sin(t);
