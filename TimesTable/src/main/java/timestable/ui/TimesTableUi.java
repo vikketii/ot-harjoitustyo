@@ -27,7 +27,9 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import timestable.dao.FileUserDao;
 import timestable.domain.TimesTable;
+import timestable.domain.TimesTableService;
 import timestable.domain.Vector;
 
 /**
@@ -37,7 +39,8 @@ import timestable.domain.Vector;
  */
 public class TimesTableUi extends Application {
 
-    private TimesTable timestable;
+    private TimesTableService timesTableService;
+    private TimesTable timesTable;
 
     private int totalVectors = 100;
     private double multiplier = 0;
@@ -52,13 +55,17 @@ public class TimesTableUi extends Application {
     public void init() throws Exception {
 //        Properties properties = new Properties();
 //        properties.load(new FileInputStream("config.properties"));
-        timestable = new TimesTable(multiplier, totalVectors);
+
+        FileUserDao userDao = new FileUserDao("users.db");
+        timesTableService = new TimesTableService(userDao);
+
+        timesTable = new TimesTable(multiplier, totalVectors);
     }
 
     public Timeline animation(Canvas lines, Label progress) {
         KeyFrame keyframe = new KeyFrame(Duration.millis(20), e -> {
             multiplier += (changeValue * 0.001);
-            timestable.updateVectors(multiplier, totalVectors);
+            timesTable.updateVectors(multiplier, totalVectors);
             drawLines(lines);
             progress.setText((Double.toString(multiplier)).format("Progress %.2f", multiplier));
         });
@@ -72,13 +79,13 @@ public class TimesTableUi extends Application {
     public void drawLines(Canvas lines) {
         GraphicsContext gc = lines.getGraphicsContext2D();
         gc.setFill(bgMainColor);
-        gc.fillRect(0, 0, timestable.getCircleRadius() * 2, timestable.getCircleRadius() * 2);
+        gc.fillRect(0, 0, timesTable.getCircleRadius() * 2, timesTable.getCircleRadius() * 2);
 
         Stop[] stops = new Stop[]{new Stop(0, bgMainColor), new Stop(1, lineMainColor)};
         LinearGradient lg1 = new LinearGradient(0, 0, 1, 1, true, CycleMethod.REFLECT, stops);
         gc.setStroke(lg1);
 
-        for (Vector vector : timestable.getVectors()) {
+        for (Vector vector : timesTable.getVectors()) {
             gc.strokeLine(vector.getStartX(), vector.getStartY(), vector.getEndX(), vector.getEndY());
         }
     }
@@ -93,7 +100,7 @@ public class TimesTableUi extends Application {
     }
 
     public Canvas initLineCanvas() {
-        int canvasSize = timestable.getCircleRadius() * 2;
+        int canvasSize = timesTable.getCircleRadius() * 2;
         Canvas lines = new Canvas(canvasSize, canvasSize);
 
         drawLines(lines);
@@ -148,7 +155,7 @@ public class TimesTableUi extends Application {
                     Number old_val, Number new_val) {
                 totalVectors = new_val.intValue() * new_val.intValue();
                 lineCountLabel.setText((Integer.toString(totalVectors)).format("Lines %d", totalVectors));
-                timestable.updateVectors(multiplier, totalVectors);
+                timesTable.updateVectors(multiplier, totalVectors);
                 drawLines(lines);
             }
         });
@@ -208,7 +215,7 @@ public class TimesTableUi extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("floating timestable");
+        primaryStage.setTitle("floating timesTable");
         Label titleLabel = new Label("TimesTable | User: ");
 
         Scene generatorScene = initGeneratorScene(primaryStage, titleLabel);

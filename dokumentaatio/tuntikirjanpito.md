@@ -9,4 +9,6 @@
 | 9.4.  | 2    | testien lisäys, dokumentaatio |
 | 16.4. | 7    | käyttöliittymän koodin refaktorointi ja ominaisuuksien lisäys |
 | 16.4. | 1    | testien lisäys, dokumentaatio |
-| yht   | 24   | |
+| 25.4. | 2    | koodikatselmointi |
+| 16.4. | 4    | tietokantayhteyden käyttöönotto, dokumentaatio |
+| yht   | 30   | |

@@ -2,6 +2,8 @@
 ## Kuviogeneraattori
 Projektin aiheena on kertotauluun perustuva kuviogeneraattori.
 
+[Toinen julkaisu.](https://github.com/vikketii/ot-harjoitustyo/releases/tag/viikko6)
+
 [Ensimmäinen julkaisu.](https://github.com/vikketii/ot-harjoitustyo/releases/tag/viikko5)
 
 ## Dokumentaatio
@@ -31,6 +33,13 @@ mvn jxr:jxr checkstyle:checkstyle
 ```
 
 Sitä voi tarkastella avaamalla selaimella tiedoston _target/site/checkstyle.html_
+
+JavaDocista voi luoda HTML-version komennolla
+```
+mvn javadoc:javadoc
+```
+
+Sitä voi tarkastella avaamalla selaimella kansion _target/site/apidocs/_
 
 ### Testaus
 

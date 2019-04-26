@@ -1,6 +1,7 @@
 package timestable.domain;
 
 /**
+ * 2D-vector class with start and endpoint.
  *
  * @author vikke
  */
@@ -11,9 +12,20 @@ public class Vector {
     private double endX;
     private double endY;
 
+    /**
+     * For initialising vectors.
+     */
     public Vector() {
     }
 
+    /**
+     * Generates 2D-vector with start and endpoint.
+     * 
+     * @param startX
+     * @param startY
+     * @param endX
+     * @param endY 
+     */
     public Vector(double startX, double startY, double endX, double endY) {
         this.startX = startX;
         this.startY = startY;
@@ -58,6 +70,12 @@ public class Vector {
         this.endY = endY;
     }
 
+    /**
+     * Returns true only if all points are same.
+     * 
+     * @param obj
+     * @return 
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Vector)) {
