@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class TimesTable {
 
     private ArrayList<Vector> vectors;
-    private int circleRadius = 380;
+    private Settings settings;
 
     /**
      * Generates all vectors.
@@ -18,15 +18,16 @@ public class TimesTable {
      * @param multiplier Speed of vectors
      * @param totalVectors Amount of total lines
      */
-    public TimesTable(double multiplier, int totalVectors) {
-        vectors = new ArrayList<>();
+    public TimesTable(Settings settings) {
+        this.settings = settings;
+        this.vectors = new ArrayList<>();
 
-        if (totalVectors < 1) {
+        if (settings.getTotalVectors() < 0) {
             return;
         }
 
-        for (int i = 0; i < totalVectors; i++) {
-            Vector v = initVector(i + 1, multiplier, totalVectors);
+        for (int i = 0; i < settings.getTotalVectors(); i++) {
+            Vector v = initVector(i + 1, settings.getMultiplier(), settings.getTotalVectors());
             vectors.add(v);
         }
     }
@@ -40,22 +41,13 @@ public class TimesTable {
      * @return generated Vector
      */
     public Vector initVector(int place, double multiplier, int totalVectors) {
-        // First we need coordinates along 
-        // the circle (which is divided by totalVectors to parts)
-        //
-        // For this we use simple math to calculate x and y like
-        // x = a + r*cos(t)
-        // y = b + r*sin(t)
-        // where (a,b) is the center of the circle
-        // and t is (2*Pi)/totalVectors
-
         double t = (place + 1) * ((2 * Math.PI) / totalVectors);
-        double startX = circleRadius + circleRadius * Math.cos(t);
-        double startY = circleRadius + circleRadius * Math.sin(t);
+        double startX = settings.getCircleRadius() + settings.getCircleRadius() * Math.cos(t);
+        double startY = settings.getCircleRadius() + settings.getCircleRadius() * Math.sin(t);
 
         t *= multiplier;
-        double endX = circleRadius + circleRadius * Math.cos(t);
-        double endY = circleRadius + circleRadius * Math.sin(t);
+        double endX = settings.getCircleRadius() + settings.getCircleRadius() * Math.cos(t);
+        double endY = settings.getCircleRadius() + settings.getCircleRadius() * Math.sin(t);
 
         return new Vector(startX, startY, endX, endY);
     }
@@ -63,21 +55,19 @@ public class TimesTable {
     /**
      * Updates all vectors based on parameter changes.
      *
-     * @param multiplier Speed of vectors
-     * @param totalVectors Amount of total lines
      */
-    public void updateVectors(double multiplier, int totalVectors) {
-        if (vectors.size() != totalVectors) {
+    public void updateVectors() {
+        if (vectors.size() != settings.getTotalVectors()) {
             vectors.clear();
-            for (int i = 0; i < totalVectors; i++) {
-                Vector v = initVector(i, multiplier, totalVectors);
+            for (int i = 0; i < settings.getTotalVectors(); i++) {
+                Vector v = initVector(i, settings.getMultiplier(), settings.getTotalVectors());
                 vectors.add(v);
             }
         } else {
-            for (int i = 0; i < totalVectors; i++) {
-                double t = multiplier * (i + 1) * ((2 * Math.PI) / totalVectors);
-                double endX = circleRadius + circleRadius * Math.cos(t);
-                double endY = circleRadius + circleRadius * Math.sin(t);
+            for (int i = 0; i < settings.getTotalVectors(); i++) {
+                double t = settings.getMultiplier() * (i + 2) * ((2 * Math.PI) / settings.getTotalVectors());
+                double endX = settings.getCircleRadius() + settings.getCircleRadius() * Math.cos(t);
+                double endY = settings.getCircleRadius() + settings.getCircleRadius() * Math.sin(t);
                 vectors.get(i).setEndPoints(endX, endY);
             }
         }
@@ -89,13 +79,5 @@ public class TimesTable {
      */
     public ArrayList<Vector> getVectors() {
         return vectors;
-    }
-
-    /**
-     *
-     * @return Circle radius on which all vectors are based on.
-     */
-    public int getCircleRadius() {
-        return circleRadius;
     }
 }

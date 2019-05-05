@@ -20,11 +20,11 @@ public class Vector {
 
     /**
      * Generates 2D-vector with start and endpoint.
-     * 
+     *
      * @param startX
      * @param startY
      * @param endX
-     * @param endY 
+     * @param endY
      */
     public Vector(double startX, double startY, double endX, double endY) {
         this.startX = startX;
@@ -72,9 +72,9 @@ public class Vector {
 
     /**
      * Returns true only if all points are same.
-     * 
+     *
      * @param obj
-     * @return 
+     * @return
      */
     @Override
     public boolean equals(Object obj) {

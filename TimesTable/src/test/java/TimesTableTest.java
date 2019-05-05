@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 
+import javafx.scene.paint.Color;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import timestable.domain.Settings;
 import timestable.domain.TimesTable;
 
 /**
@@ -16,10 +18,12 @@ import timestable.domain.TimesTable;
 public class TimesTableTest {
 
     private TimesTable tt;
+    private Settings settings;
     
     @Before
     public void initTest() {
-        tt = new TimesTable(0, 100);
+        settings = new Settings(100, 2, 1, Color.BLUE, Color.WHITE);
+        tt = new TimesTable(settings);
     }
     
     @Test
@@ -29,29 +33,31 @@ public class TimesTableTest {
     
     @Test
     public void canNotInitNegativeAmountOfVectors() {
-        TimesTable t1 = new TimesTable(0, -1);
+        TimesTable t1 = new TimesTable(new Settings(-1, 0, 0, Color.LINEN, Color.GAINSBORO));
         assertTrue(t1.getVectors().isEmpty());
     }
     
     @Test
     public void canIncreaseVectorCount() {
-        tt.updateVectors(0, 101);
-        tt.updateVectors(0, 1000);
-        assertEquals(1000, tt.getVectors().size());
+        settings.setTotalVectors(110);
+        tt.updateVectors();
+        assertEquals(110, tt.getVectors().size());
     }
     
     @Test
     public void canDecreaseVectorCount() {
-        tt.updateVectors(0, 99);
-        tt.updateVectors(0, 50);
-        assertEquals(50, tt.getVectors().size());
+        settings.setTotalVectors(90);
+        tt.updateVectors();
+        assertEquals(90, tt.getVectors().size());
     }
     
     @Test
     public void canNotMakeVectorCountNegative() {
-        tt.updateVectors(0, 0);
+        settings.setTotalVectors(0);
+        tt.updateVectors();
         assertEquals(0, tt.getVectors().size());
-        tt.updateVectors(0, -1);
+        settings.setTotalVectors(-1);
+        tt.updateVectors();
         assertEquals(0, tt.getVectors().size());
     }
 }

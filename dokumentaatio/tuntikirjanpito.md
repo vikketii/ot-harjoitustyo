@@ -10,5 +10,7 @@
 | 16.4. | 7    | käyttöliittymän koodin refaktorointi ja ominaisuuksien lisäys |
 | 16.4. | 1    | testien lisäys, dokumentaatio |
 | 25.4. | 2    | koodikatselmointi |
-| 16.4. | 4    | tietokantayhteyden käyttöönotto, dokumentaatio |
-| yht   | 30   | |
+| 25.4. | 4    | tietokantayhteyden käyttöönotto, dokumentaatio |
+| 4.5.  | 6    | koodin refaktorointi, tietokantayhteyden parantelu |
+| 5.5.  | 6    | tietokantayhteyden viimeistely, käyttöliittymän viimeistely |
+| yht   | 42   | |

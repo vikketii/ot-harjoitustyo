@@ -1,12 +1,12 @@
 package timestable.ui;
 
-import java.io.FileInputStream;
-import java.util.Properties;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,20 +16,22 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import timestable.dao.FileUserDao;
-import timestable.domain.TimesTable;
+import timestable.domain.Settings;
 import timestable.domain.TimesTableService;
+import timestable.domain.User;
 import timestable.domain.Vector;
 
 /**
@@ -40,34 +42,23 @@ import timestable.domain.Vector;
 public class TimesTableUi extends Application {
 
     private TimesTableService timesTableService;
-    private TimesTable timesTable;
-
-    private int totalVectors = 100;
-    private double multiplier = 0;
-    private double changeValue = 2;
-
-    private Color lineMainColor = Color.rgb(102, 255, 255, 0.6);
-    private Color bgMainColor = Color.rgb(40, 40, 40);
-
+    private FileUserDao userDao;
+    private Settings settings;
     private String currentUser = "";
 
     @Override
     public void init() throws Exception {
-//        Properties properties = new Properties();
-//        properties.load(new FileInputStream("config.properties"));
-
-        FileUserDao userDao = new FileUserDao("users.db");
-        timesTableService = new TimesTableService(userDao);
-
-        timesTable = new TimesTable(multiplier, totalVectors);
+        userDao = new FileUserDao("users.db");
+        settings = new Settings();
+        timesTableService = new TimesTableService(userDao, settings);
     }
 
     public Timeline animation(Canvas lines, Label progress) {
         KeyFrame keyframe = new KeyFrame(Duration.millis(20), e -> {
-            multiplier += (changeValue * 0.001);
-            timesTable.updateVectors(multiplier, totalVectors);
+            settings.setMultiplier(settings.getMultiplier() + settings.getSpeed() * 0.001);
+            timesTableService.updateTimesTable();
             drawLines(lines);
-            progress.setText((Double.toString(multiplier)).format("Progress %.2f", multiplier));
+            progress.setText(String.format("Progress: %.2f", settings.getMultiplier()));
         });
 
         Timeline timeline = new Timeline(keyframe);
@@ -78,21 +69,21 @@ public class TimesTableUi extends Application {
 
     public void drawLines(Canvas lines) {
         GraphicsContext gc = lines.getGraphicsContext2D();
-        gc.setFill(bgMainColor);
-        gc.fillRect(0, 0, timesTable.getCircleRadius() * 2, timesTable.getCircleRadius() * 2);
+        gc.setFill(settings.getBgMainColor());
+        gc.fillRect(0, 0, settings.getCircleRadius() * 2, settings.getCircleRadius() * 2);
 
-        Stop[] stops = new Stop[]{new Stop(0, bgMainColor), new Stop(1, lineMainColor)};
+        Stop[] stops = new Stop[]{new Stop(0, settings.getBgMainColor()), new Stop(0.4, settings.getLineMainColor())};
         LinearGradient lg1 = new LinearGradient(0, 0, 1, 1, true, CycleMethod.REFLECT, stops);
         gc.setStroke(lg1);
 
-        for (Vector vector : timesTable.getVectors()) {
+        for (Vector vector : timesTableService.getVectors()) {
             gc.strokeLine(vector.getStartX(), vector.getStartY(), vector.getEndX(), vector.getEndY());
         }
     }
 
-    public GridPane initGrid() {
+    public GridPane initGrid(Pos p) {
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.TOP_CENTER);
+        grid.setAlignment(p);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(20));
@@ -100,19 +91,17 @@ public class TimesTableUi extends Application {
     }
 
     public Canvas initLineCanvas() {
-        int canvasSize = timesTable.getCircleRadius() * 2;
-        Canvas lines = new Canvas(canvasSize, canvasSize);
-
-        drawLines(lines);
-        return lines;
+        int canvasSize = settings.getCircleRadius() * 2;
+        Canvas lineCanvas = new Canvas(canvasSize, canvasSize);
+        drawLines(lineCanvas);
+        return lineCanvas;
     }
 
-    public Scene initGeneratorScene(Stage primaryStage, Label titleLabel) {
-        GridPane grid = initGrid();
-        Canvas lines = initLineCanvas();
+    public Scene initGeneratorScene(Stage primaryStage, Label titleLabel, Canvas lineCanvas) {
+        GridPane grid = initGrid(Pos.TOP_CENTER);
 
-        Label progress = new Label((Double.toString(multiplier)).format("Progress %.2f", multiplier));
-        Timeline timeline = animation(lines, progress);
+        Label progress = new Label(String.format("Progress: %.2f", settings.getMultiplier()));
+        Timeline timeline = animation(lineCanvas, progress);
 
         Button quitButton = new Button();
         quitButton.setText("quit");
@@ -126,6 +115,7 @@ public class TimesTableUi extends Application {
         CheckBox playBox = new CheckBox();
         playBox.setText("Play");
         playBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
             public void changed(ObservableValue<? extends Boolean> ov,
                     Boolean old_val, Boolean new_val) {
                 if (new_val) {
@@ -136,78 +126,146 @@ public class TimesTableUi extends Application {
             }
         });
 
-        Slider multiplierSlider = new Slider(-100, 100, 1);
-        Label multiplierLabel = new Label((Double.toString(changeValue)).format("Speed: %.2f", changeValue));
-        multiplierSlider.setValue(changeValue);
-        multiplierSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                    Number old_val, Number new_val) {
-                changeValue = new_val.doubleValue();
-                multiplierLabel.setText((Double.toString(changeValue)).format("Speed: %.2f", changeValue));
-            }
-        });
-
-        Slider lineCountSlider = new Slider(1, 100, 1);
-        Label lineCountLabel = new Label((Integer.toString(totalVectors)).format("Lines %d", totalVectors));
-        lineCountSlider.setValue((int) Math.sqrt(totalVectors));
-        lineCountSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                    Number old_val, Number new_val) {
-                totalVectors = new_val.intValue() * new_val.intValue();
-                lineCountLabel.setText((Integer.toString(totalVectors)).format("Lines %d", totalVectors));
-                timesTable.updateVectors(multiplier, totalVectors);
-                drawLines(lines);
-            }
-        });
-
-        ColorPicker mainColorPicker = new ColorPicker();
-        mainColorPicker.setValue(lineMainColor);
-        mainColorPicker.setOnAction(new EventHandler<ActionEvent>() {
+        TextField multiplierTextField = new TextField();
+        multiplierTextField.setPromptText("Set progress value");
+        multiplierTextField.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                lineMainColor = mainColorPicker.getValue();
-                drawLines(lines);
+                settings.setMultiplier(Double.parseDouble(multiplierTextField.getText().replace(",", ".")));
+                progress.setText(String.format("Progress: %.2f", settings.getMultiplier()));
+                timesTableService.updateTimesTable();
+                drawLines(lineCanvas);
+            }
+        });
+
+        Slider speedSlider = new Slider(-50, 50, 1);
+        speedSlider.setValue(settings.getSpeed());
+        Label speedLabel = new Label(String.format("Change speed: %d", settings.getSpeed()));
+        speedSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov,
+                    Number old_val, Number new_val) {
+                settings.setSpeed(new_val.intValue());
+                speedLabel.setText(String.format("Change speed: %d", settings.getSpeed()));
+            }
+        });
+
+        Label totalVectorsLabel = new Label(String.format("Lines: %d", settings.getTotalVectors()));
+        TextField totalVectorsTextField = new TextField();
+        totalVectorsTextField.setPromptText("Set line count");
+        totalVectorsTextField.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                settings.setTotalVectors(Integer.parseInt(totalVectorsTextField.getText().replace(",", ".")));
+                totalVectorsLabel.setText(String.format("Lines: %d", settings.getTotalVectors()));
+                timesTableService.updateTimesTable();
+                drawLines(lineCanvas);
+            }
+        });
+
+        Label lineColorLabel = new Label("Line color:");
+        ColorPicker lineColorPicker = new ColorPicker();
+        lineColorPicker.setValue(settings.getLineMainColor());
+        lineColorPicker.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                settings.setLineMainColor(lineColorPicker.getValue());
+                drawLines(lineCanvas);
+            }
+        });
+
+        Label backgroundColorLabel = new Label("Background color:");
+        ColorPicker backgroundColorPicker = new ColorPicker();
+        backgroundColorPicker.setValue(settings.getBgMainColor());
+        backgroundColorPicker.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                settings.setBgMainColor(backgroundColorPicker.getValue());
+                drawLines(lineCanvas);
+            }
+        });
+
+        Button saveSettings = new Button("Save settings");
+        saveSettings.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                userDao.update(new User(currentUser, settings));
             }
         });
 
         grid.add(titleLabel, 0, 0);
         grid.add(quitButton, 1, 0);
-        grid.add(lines, 0, 1, 1, 9);
+
+        grid.add(lineCanvas, 0, 1, 1, 16);
 
         grid.add(playBox, 1, 2);
-        grid.add(multiplierLabel, 1, 3);
-        grid.add(multiplierSlider, 1, 4);
-        grid.add(lineCountLabel, 1, 5);
-        grid.add(lineCountSlider, 1, 6);
-        grid.add(progress, 1, 7);
+        grid.add(progress, 1, 3);
+        grid.add(multiplierTextField, 1, 4);
+        grid.add(speedLabel, 1, 5);
+        grid.add(speedSlider, 1, 6);
+        grid.add(totalVectorsLabel, 1, 7);
+        grid.add(totalVectorsTextField, 1, 8);
 
-        grid.add(mainColorPicker, 1, 8);
+        grid.add(lineColorLabel, 1, 9);
+        grid.add(lineColorPicker, 1, 10);
+        grid.add(backgroundColorLabel, 1, 11);
+        grid.add(backgroundColorPicker, 1, 12);
+
+        grid.add(saveSettings, 1, 13);
 
         Scene generatorScene = new Scene(grid);
 
         return generatorScene;
     }
 
-    public Scene initGreeterScene(Stage primaryStage, Scene generatorScene, Label titleLabel) {
-        GridPane greeter = new GridPane();
-        greeter.setAlignment(Pos.CENTER);
+    public Scene initGreeterScene(Stage primaryStage, Scene generatorScene, Label titleLabel, Canvas lineCanvas) {
+        GridPane greeter = initGrid(Pos.CENTER);
 
-        Label nameLabel = new Label("Name: ");
+        Label nameLabel = new Label("Make a new user: ");
         TextField nameField = new TextField();
 
-        Button welcome = new Button("continue");
+        Button welcome = new Button("Add user");
+        welcome.setDefaultButton(true);
         welcome.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
                 currentUser = nameField.getText();
+                timesTableService.saveUser(new User(currentUser));
+                titleLabel.setText("TimesTable | User: " + currentUser);
+                primaryStage.setScene(generatorScene);
+            }
+        });
+
+        Label chooseUserLabel = new Label("or choose from the list: ");
+        List<String> names = timesTableService.getAllUsersNames();
+
+        ChoiceBox userList = new ChoiceBox(FXCollections.observableArrayList(names));
+        userList.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue ov, Number value, Number new_value) {
+                currentUser = names.get(new_value.intValue());
+
+                Settings temp = timesTableService.findUserByName(currentUser).getSettings();
+                settings.setSpeed(temp.getSpeed());
+                settings.setTotalVectors(temp.getTotalVectors());
+                settings.setMultiplier(temp.getMultiplier());
+                settings.setLineMainColor(temp.getLineMainColor());
+                settings.setBgMainColor(temp.getBgMainColor());
+
+                timesTableService.updateTimesTable();
+                drawLines(lineCanvas);
+
                 titleLabel.setText("TimesTable | User: " + currentUser);
                 primaryStage.setScene(generatorScene);
             }
         });
 
         greeter.add(nameLabel, 0, 0);
-        greeter.add(nameField, 1, 0);
+        greeter.add(nameField, 0, 1);
         greeter.add(welcome, 1, 1);
+
+        greeter.add(chooseUserLabel, 0, 2);
+        greeter.add(userList, 0, 3);
 
         Scene greeterScene = new Scene(greeter);
         return greeterScene;
@@ -215,25 +273,21 @@ public class TimesTableUi extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("floating timesTable");
+        primaryStage.setTitle("TimesTable");
         Label titleLabel = new Label("TimesTable | User: ");
+        Canvas lineCanvas = initLineCanvas();
 
-        Scene generatorScene = initGeneratorScene(primaryStage, titleLabel);
-        Scene greeterScene = initGreeterScene(primaryStage, generatorScene, titleLabel);
+        Scene generatorScene = initGeneratorScene(primaryStage, titleLabel, lineCanvas);
+        Scene greeterScene = initGreeterScene(primaryStage, generatorScene, titleLabel, lineCanvas);
 
         primaryStage.setScene(greeterScene);
         primaryStage.show();
-    }
-
-    @Override
-    public void stop() {
     }
 
     public static void main(String[] args) {
         try {
             launch(args);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

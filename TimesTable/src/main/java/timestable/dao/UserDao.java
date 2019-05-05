@@ -12,6 +12,8 @@ public interface UserDao {
 
     User create(User user) throws Exception;
 
-    List<User> getAll();
+    List<String> getAllNames();
+
+    User findByName(String name);
 
 }
