@@ -8,6 +8,7 @@ package timestable.domain;
 import javafx.scene.paint.Color;
 
 /**
+ * Class for saving generator settings.
  *
  * @author vikke
  */

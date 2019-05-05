@@ -20,6 +20,12 @@ public class User {
         this.settings = new Settings();
     }
 
+    /**
+     * Generates user with custom settings.
+     * 
+     * @param username
+     * @param settings 
+     */
     public User(String username, Settings settings) {
         this.username = username;
         this.settings = settings;
@@ -37,6 +43,12 @@ public class User {
         this.settings = settings;
     }
 
+    /**
+     * Checks if two users are equal based on names.
+     * 
+     * @param obj
+     * @return 
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof User)) {

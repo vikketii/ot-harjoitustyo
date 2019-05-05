@@ -15,8 +15,7 @@ public class TimesTable {
     /**
      * Generates all vectors.
      *
-     * @param multiplier Speed of vectors
-     * @param totalVectors Amount of total lines
+     * @param settings
      */
     public TimesTable(Settings settings) {
         this.settings = settings;

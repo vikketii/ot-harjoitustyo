@@ -16,6 +16,11 @@ public class FileUserDao implements UserDao {
 
     private String filename;
 
+    /**
+     * Makes connection to the database file.
+     *
+     * @return Connection to database
+     */
     private Connection connect() {
         String url = "jdbc:sqlite:./" + filename;
 
@@ -66,7 +71,7 @@ public class FileUserDao implements UserDao {
     }
 
     /**
-     * Lists all users from database.
+     * Lists all usernames from database.
      *
      * @return
      */
@@ -91,6 +96,12 @@ public class FileUserDao implements UserDao {
         return names;
     }
 
+    /**
+     * Finds user by name from database. Returns default user if nothing found.
+     *
+     * @param name
+     * @return Found user.
+     */
     public User findByName(String name) {
         String sql = "SELECT * FROM Users WHERE name = ?";
         User user = new User(name);
@@ -154,6 +165,11 @@ public class FileUserDao implements UserDao {
         return user;
     }
 
+    /**
+     * Finds user based on name and updates user information in database.
+     *
+     * @param user
+     */
     public void update(User user) {
         String sql = "UPDATE Users SET totalvectors = ? , "
                 + "multiplier = ? , "

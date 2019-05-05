@@ -20,8 +20,12 @@ Projektin aiheena on kertotauluun perustuva kuviogeneraattori.
 
 
 ## Komentorivitoiminnot
+Jar-tiedoston voi suorittaa komennolla
+```
+java -jar timestable.jar
+```
 
-Ohjelman voi suorittaa pääkansiossa komennolla
+Lähdekoodista ohjelman voi suorittaa pääkansiossa komennolla
 ```
 mvn compile exec:java -Dexec.mainClass=timestable.ui.TimesTableUi
 ```
@@ -35,28 +39,28 @@ Checkstyleraportin saa luotua komennolla
 ```
 mvn jxr:jxr checkstyle:checkstyle
 ```
-
 Sitä voi tarkastella avaamalla selaimella tiedoston _target/site/checkstyle.html_
 
 JavaDocista voi luoda HTML-version komennolla
 ```
 mvn javadoc:javadoc
 ```
-
 Sitä voi tarkastella avaamalla selaimella kansion _target/site/apidocs/_
 
 ### Testaus
-
 Testit suoritetaan komennolla
-
 ```
 mvn test
 ```
 
 Testikattavuusraportti luodaan komennolla
-
 ```
 mvn jacoco:report
 ```
-
 Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
+
+Checkstyle tyyliraportin voi luoda komennolla
+```
+mvn jxr:jxr checkstyle:checkstyle
+```
+Raportin löytää tiestosta _target/site/checkstyle.html_

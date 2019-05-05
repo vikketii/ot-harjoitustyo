@@ -13,4 +13,5 @@
 | 25.4. | 4    | tietokantayhteyden käyttöönotto, dokumentaatio |
 | 4.5.  | 6    | koodin refaktorointi, tietokantayhteyden parantelu |
 | 5.5.  | 6    | tietokantayhteyden viimeistely, käyttöliittymän viimeistely |
-| yht   | 42   | |
+|5.5.   | 3    | testien lisays, dokumentaation parantelu |
+| yht   | 45   | |

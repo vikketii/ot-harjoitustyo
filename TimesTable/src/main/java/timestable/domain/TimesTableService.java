@@ -14,6 +14,13 @@ public class TimesTableService {
     private Settings settings;
     private TimesTable timesTable;
 
+    /**
+     * Initialises TimesTable class and calls addColorUsersToDatabase method
+     * to add three default users to database.
+     * 
+     * @param userDao
+     * @param settings 
+     */
     public TimesTableService(UserDao userDao, Settings settings) {
         this.userDao = userDao;
         this.settings = settings;
@@ -21,7 +28,10 @@ public class TimesTableService {
 
         this.timesTable = new TimesTable(settings);
     }
-
+    
+    /**
+     * Adds three default users to database.
+     */
     public void addColorUsersToDatabase() {
         if (!userDao.getAllNames().contains("Sininen")) {
             Settings blue = new Settings();
@@ -46,18 +56,36 @@ public class TimesTableService {
         return timesTable.getVectors();
     }
 
+    /**
+     * Calls TimesTable to update vectors.
+     */
     public void updateTimesTable() {
         timesTable.updateVectors();
     }
 
+    /**
+     * Calls FileUserDao to find user from database.
+     * 
+     * @param name
+     * @return Found user.
+     */
     public User findUserByName(String name) {
         return userDao.findByName(name);
     }
 
+    /**
+     * Calls FileUserDao to find all usernames from database.
+     * 
+     * @return List of usernames.
+     */
     public List<String> getAllUsersNames() {
         return userDao.getAllNames();
     }
 
+    /**
+     * Calls FileUserDao to save user to database if the user doesn't already exist.
+     * @param newUser 
+     */
     public void saveUser(User newUser) {
         if (userDao.getAllNames().contains(newUser.getName())) {
             return;
