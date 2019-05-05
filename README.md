@@ -16,6 +16,8 @@ Projektin aiheena on kertotauluun perustuva kuviogeneraattori.
 
 [Käyttöohje](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
 
+[Testausdokumentti](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/testausdokumentti.md)
+
 [Tuntikirjanpito](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 
 
