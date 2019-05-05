@@ -18,6 +18,12 @@ public class FileUserDao implements UserDao {
 
     private Connection connect() {
         String url = "jdbc:sqlite:./" + filename;
+
+        // Temporal database for testing purposes
+        if (filename.contains("memory")) {
+            url = "jdbc:sqlite:./test.db";
+        }
+
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);

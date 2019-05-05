@@ -2,15 +2,19 @@
 ## Kuviogeneraattori
 Projektin aiheena on kertotauluun perustuva kuviogeneraattori.
 
+[Lopullinen julkaisu.](https://github.com/vikketii/ot-harjoitustyo/releases/tag/lopullinen)
+
 [Toinen julkaisu.](https://github.com/vikketii/ot-harjoitustyo/releases/tag/viikko6)
 
 [Ensimmäinen julkaisu.](https://github.com/vikketii/ot-harjoitustyo/releases/tag/viikko5)
 
 ## Dokumentaatio
 
-[Alustava vaatimusmäärittely](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+[Vaatimusmäärittely](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 [Arkkitehtuuri](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+
+[Käyttöohje](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
 
 [Tuntikirjanpito](https://github.com/vikketii/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 

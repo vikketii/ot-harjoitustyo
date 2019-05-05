@@ -10,10 +10,12 @@ import timestable.domain.User;
  */
 public interface UserDao {
 
-    User create(User user) throws Exception;
+    User create(User user);
 
     List<String> getAllNames();
 
     User findByName(String name);
+    
+    void update(User user);
 
 }

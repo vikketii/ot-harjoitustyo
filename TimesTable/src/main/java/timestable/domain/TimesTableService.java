@@ -2,21 +2,20 @@ package timestable.domain;
 
 import java.util.List;
 import javafx.scene.paint.Color;
-import timestable.dao.FileUserDao;
+import timestable.dao.UserDao;
 
 /**
- * Not yet finished class for sewing together TimesTable and User classes.
  *
  * @author vikke
  */
 public class TimesTableService {
 
-    private FileUserDao userDao;
+    private UserDao userDao;
     private Settings settings;
     private TimesTable timesTable;
 
-    public TimesTableService(FileUserDao fileUserDao, Settings settings) {
-        this.userDao = fileUserDao;
+    public TimesTableService(UserDao userDao, Settings settings) {
+        this.userDao = userDao;
         this.settings = settings;
         this.addColorUsersToDatabase();
 

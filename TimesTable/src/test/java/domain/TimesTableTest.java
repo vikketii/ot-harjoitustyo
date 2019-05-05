@@ -1,3 +1,5 @@
+package domain;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -59,5 +61,11 @@ public class TimesTableTest {
         settings.setTotalVectors(-1);
         tt.updateVectors();
         assertEquals(0, tt.getVectors().size());
+    }
+    
+    @Test
+    public void updatingVectorsWorksWithoutChangingVectorCount() {
+        tt.updateVectors();
+        assertEquals(100, tt.getVectors().size());
     }
 }
